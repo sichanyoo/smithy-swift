@@ -1,27 +1,19 @@
-name: Sync Staging Repo
+name: Sync Mirror
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
-  sync:
+  git-sync:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout smithy-swift
-        uses: actions/checkout@v4
-      - name: Print working directory
-        run: |
-          pwd
-      - name: Set up git
-        run: |
-          git config --global user.name "Repo Sync"
-          git config --global user.email "repo-sync-action@github.com"
-          git config --unset-all http.https://github.com/.extraheader
-      - name: Push main to staging repo
-        run: |
-          git gc --prune=now --aggressive
-          git repack -a -d --max-pack-size=50m
-          git push -f https://${{ secrets.REPO_SYNC_AUTOMATION_USER_TOKEN }}@github.com/awslabs/private-smithy-swift-staging.git main
+      - name: git-sync
+        uses: wei/git-sync@v3
+        with:
+          source_repo: ${{ secrets.GIT_SYNC_SOURCE_REPO }}
+          source_branch: "main"
+          destination_repo: ${{ secrets.SYNC_DESTINATION_REPO }}
+          destination_branch: "main"
