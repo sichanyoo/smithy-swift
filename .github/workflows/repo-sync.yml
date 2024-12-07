@@ -19,6 +19,7 @@ jobs:
         run: |
           git config --global user.name "Repo Sync"
           git config --global user.email "repo-sync-action@github.com"
+          git config --unset-all http.https://github.com/.extraheader
       - name: Push main to staging repo
         run: |
           git push https://${{ secrets.REPO_SYNC_AUTOMATION_USER_TOKEN }}@github.com/awslabs/private-smithy-swift-staging.git main
