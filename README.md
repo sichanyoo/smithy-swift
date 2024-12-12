@@ -9,6 +9,8 @@
 
 > **⚠️ WARNING**: All interfaces are subject to change.
 
+Dummy change 
+
 ## Getting Started
 
 - Check out [high-level overview of Smithy](https://smithy.io/2.0/index.html)
